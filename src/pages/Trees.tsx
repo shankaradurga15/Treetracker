@@ -1,6 +1,10 @@
+"use client";
+
+import type React from "react";
+
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ListFilter, Search, Ellipsis } from "lucide-react";
 import {
@@ -10,6 +14,7 @@ import {
   Filter,
   ChevronLeft,
   ChevronRight,
+  Import,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +30,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -42,7 +63,11 @@ interface TreeListData {
   species: string;
   location: string;
   plantedOn: string;
-  plantedBy: string;
+  plantedBy: {
+    name: string;
+    id: string;
+    image: string; // Use local or public image path
+  };
   status: "Completed" | "Due" | "In Progress" | "Pending";
   nextinspectiondate: string;
 }
@@ -70,6 +95,11 @@ const markerIcon = new L.Icon({
 
 const Trees = () => {
   const [viewMode, setViewMode] = useState<"list" | "map">("map");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(10);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showImportButton, setShowImportButton] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const treescrollRef = useRef<HTMLDivElement>(null);
   const orgscrollRef = useRef<HTMLDivElement>(null);
@@ -80,6 +110,19 @@ const Trees = () => {
   const [orgLeftArrowVisible, setOrgLeftArrowVisible] = useState(false);
   const [volunteerLeftArrowVisible, setVolunteerLeftArrowVisible] =
     useState(false);
+
+  const handleViewModeChange = (mode: "list" | "map") => {
+    setViewMode(mode);
+    if (mode === "list") {
+      setShowImportButton(true);
+    } else {
+      setShowImportButton(false);
+    }
+  };
+
+  const handleImportClick = () => {
+    setOpenDialog(true);
+  };
 
   const scroll = (
     direction: "left" | "right",
@@ -244,10 +287,14 @@ const Trees = () => {
     {
       id: "T171",
       name: "Neem",
-      location: "Location 171",
       species: "Azadirachta Indica",
+      location: "Location 171",
       plantedOn: "Dec 23, 2023",
-      plantedBy: "Location 45",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Due",
       nextinspectiondate: "April 27,2025",
     },
@@ -257,7 +304,11 @@ const Trees = () => {
       species: "Ficus Benghalensis",
       location: "Location 35",
       plantedOn: "Dec 23, 2023",
-      plantedBy: "Rotary Club",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
     },
@@ -267,7 +318,11 @@ const Trees = () => {
       species: "Quercus Robur",
       location: "Location 45",
       plantedOn: "Dec 27, 2023",
-      plantedBy: "Lions Club",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Due",
       nextinspectiondate: "April 27,2025",
     },
@@ -277,7 +332,11 @@ const Trees = () => {
       species: "Pinus Sylvestris",
       location: "Location 140",
       plantedOn: "Dec 25, 2023",
-      plantedBy: "Tuticorin Corporation",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
     },
@@ -287,7 +346,11 @@ const Trees = () => {
       species: "Bambusa Vulgaris",
       location: "Location 4",
       plantedOn: "Dec 20, 2023",
-      plantedBy: "TN Government",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Pending",
       nextinspectiondate: "May 05,2025",
     },
@@ -297,7 +360,11 @@ const Trees = () => {
       species: "Acer Sacchrarum",
       location: "Location 183",
       plantedOn: "Dec 26, 2023",
-      plantedBy: "TN Government",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "In Progress",
       nextinspectiondate: "May 2,2025",
     },
@@ -307,7 +374,11 @@ const Trees = () => {
       species: "Cocus Nucifera",
       location: "Location 42",
       plantedOn: "Dec 22, 2023",
-      plantedBy: "TN Government",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
     },
@@ -317,7 +388,11 @@ const Trees = () => {
       species: "Sequoia Sempervirens",
       location: "Location 111",
       plantedOn: "Dec 20, 2023",
-      plantedBy: "TN Government",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Pending",
       nextinspectiondate: "May 05, 2025",
     },
@@ -327,7 +402,11 @@ const Trees = () => {
       species: "Prunus Serrulata",
       location: "Location 27",
       plantedOn: "Dec 18, 2023",
-      plantedBy: "TN Government",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Completed",
       nextinspectiondate: "May 05,2025",
     },
@@ -337,7 +416,11 @@ const Trees = () => {
       species: "Mangifera Grandis",
       location: "Location 36",
       plantedOn: "Mar 3, 2024",
-      plantedBy: "TN Government",
+      plantedBy: {
+        name: "Philip",
+        id: "VT12",
+        image: "/philip.webp",
+      },
       status: "Pending",
       nextinspectiondate: "May 07,2025",
     },
@@ -352,12 +435,31 @@ const Trees = () => {
         return "bg-yellow-100 text-yellow-800";
       case "Due":
         return "bg-red-100 text-red-800";
-        case "In Progress":
+      case "In Progress":
         return "bg-blue-100 text-blue-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
   };
+
+  // Pagination logic
+  const paginate = (pageNumber: number) => {
+    setIsLoading(true);
+
+    // Simulate loading delay (remove in production)
+    setTimeout(() => {
+      setCurrentPage(pageNumber);
+      setIsLoading(false);
+    }, 300);
+  };
+
+  // Get current trees for the page
+  const indexOfLastTree = currentPage * itemsPerPage;
+  const indexOfFirstTree = indexOfLastTree - itemsPerPage;
+  const currentTrees = detailedTrees.slice(indexOfFirstTree, indexOfLastTree);
+
+  // For demo purposes - to show more pages
+  const totalPages = 20;
 
   return (
     <div className="pl-64 p-6 bg-gray-50 min-h-screen">
@@ -386,7 +488,7 @@ const Trees = () => {
               <Button
                 variant={viewMode === "list" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => setViewMode("list")}
+                onClick={() => handleViewModeChange("list")}
                 className="rounded-r-none"
               >
                 <List size={18} className="mr-1" /> List
@@ -394,12 +496,22 @@ const Trees = () => {
               <Button
                 variant={viewMode === "map" ? "default" : "ghost"}
                 size="sm"
-                onClick={() => setViewMode("map")}
+                onClick={() => handleViewModeChange("map")}
                 className="rounded-l-none"
               >
                 <MapPin size={18} className="mr-1" /> Map
               </Button>
             </div>
+
+            {showImportButton && (
+              <Button
+                size="sm"
+                onClick={handleImportClick}
+                className="border border-[#4a695b] text-[white] hover:bg-[#4a695b]/9"
+              >
+                <Import size={18} className="mr-1" /> Import Excel
+              </Button>
+            )}
 
             <Popover>
               <PopoverTrigger asChild>
@@ -451,9 +563,93 @@ const Trees = () => {
         </div>
       </div>
 
+      {/* Complaint Register Dialog */}
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="sm:max-w-xl">
+          <DialogHeader>
+            <DialogTitle>Register New Complaint</DialogTitle>
+            <DialogDescription>
+              Enter the details of the new dog complaint.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form className="grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
+            {/* Location */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Location
+            </label>
+            <Input className="sm:col-span-9" placeholder="Enter location" />
+            {/* Ward */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Ward
+            </label>
+            <Select>
+              <SelectTrigger className="sm:col-span-9">
+                <SelectValue placeholder="Select ward" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ward-1">Ward 1</SelectItem>
+                <SelectItem value="ward-2">Ward 2</SelectItem>
+              </SelectContent>
+            </Select>
+            {/* Address */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Address
+            </label>
+            <Input className="sm:col-span-9" placeholder="Full address" />
+            {/* Reported By */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Reported By
+            </label>
+            <Input className="sm:col-span-9" placeholder="Name of reporter" />
+            {/* Contact */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Contact
+            </label>
+            <Input className="sm:col-span-9" placeholder="Phone number" />
+            {/* Dog Count */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Dog Count
+            </label>
+            <Input className="sm:col-span-9" placeholder="1" />
+            {/* Description */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Description
+            </label>
+            <Textarea
+              className="sm:col-span-9"
+              placeholder="Describe the issue"
+            />
+            {/* Priority */}
+            <label className="sm:col-span-3 text-sm font-medium mt-2">
+              Priority
+            </label>
+            <Select>
+              <SelectTrigger className="sm:col-span-9">
+                <SelectValue placeholder="Select priority" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="low">Low</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="high">High</SelectItem>
+              </SelectContent>
+            </Select>
+            {/* Submit Button */}
+            <div className="sm:col-span-3" /> {/* Empty space for alignment */}
+            <Button
+              type="submit"
+              className="sm:col-span-9 text-white hover:opacity-90 transition"
+              style={{ backgroundColor: "#0e3624" }}
+            >
+              Register Complaint
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+
       <Tabs
         value={viewMode}
-        onValueChange={(value) => setViewMode(value as "list" | "map")}
+        onValueChange={(value) => handleViewModeChange(value as "list" | "map")}
       >
         <TabsContent value="map">
           <div className="flex flex-col lg:flex-row gap-10">
@@ -489,7 +685,7 @@ const Trees = () => {
                           style={{ borderColor: "#194f33" }}
                         >
                           <img
-                            src={tree.image}
+                            src={tree.image || "/placeholder.svg"}
                             alt={tree.name}
                             className="w-full h-full object-cover"
                           />
@@ -543,7 +739,7 @@ const Trees = () => {
                           style={{ borderColor: "#194f33" }}
                         >
                           <img
-                            src={org.logo}
+                            src={org.logo || "/placeholder.svg"}
                             alt={org.name}
                             className="w-full h-full object-cover"
                           />
@@ -594,7 +790,7 @@ const Trees = () => {
                           style={{ borderColor: "#194f33" }}
                         >
                           <img
-                            src={volunteer.photo}
+                            src={volunteer.photo || "/placeholder.svg"}
                             alt={volunteer.name}
                             className="w-full h-full object-cover"
                           />
@@ -707,51 +903,117 @@ const Trees = () => {
             </div>
 
             <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-gray-50">
-                    <TableHead className="w-[100px]">Tree ID</TableHead>
-                    <TableHead>Tree Name</TableHead>
-                    <TableHead>Species</TableHead>
-                    <TableHead>Planted On</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Next Inspection Date</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Planted By</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {detailedTrees.map((tree) => (
-                    <TableRow key={tree.id}>
-                      <TableCell className="font-medium">{tree.id}</TableCell>
-                      <TableCell>{tree.name}</TableCell>
-                      <TableCell>{tree.species}</TableCell>
-                      <TableCell>{tree.location}</TableCell>
-                      <TableCell>{tree.plantedOn}</TableCell>
-                      <TableCell>{tree.plantedBy}</TableCell>
-                      <TableCell>
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(
-                            tree.status
-                          )}`}
-                        >
-                          {tree.status}
-                        </span>
-                      </TableCell>
-                      <TableCell>{tree.nextinspectiondate}</TableCell>
-                      <TableCell className="text-right">
-                        <button
-                          type="button"
-                          className="p-2 hover:bg-gray-100 rounded focus:outline-none"
-                        >
-                          <Ellipsis className="w-4 h-4 text-gray-600" />
-                        </button>
-                      </TableCell>
+              <div className="relative">
+                {isLoading && (
+                  <div className="absolute inset-0 bg-white/70 z-10 flex items-center justify-center">
+                    <div className="flex flex-col items-center">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+                      <p className="mt-2 text-sm text-gray-500">Loading...</p>
+                    </div>
+                  </div>
+                )}
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-gray-50">
+                      <TableHead className="w-[100px]">Tree ID</TableHead>
+                      <TableHead>Tree Name</TableHead>
+                      <TableHead>Species</TableHead>
+                      <TableHead>Planted On</TableHead>
+                      <TableHead>Location</TableHead>
+                      <TableHead>Next Inspection Date</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Planted By</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {currentTrees.map((tree) => (
+                      <TableRow key={tree.id}>
+                        <TableCell className="font-medium">{tree.id}</TableCell>
+                        <TableCell>{tree.name}</TableCell>
+                        <TableCell>{tree.species}</TableCell>
+                        <TableCell>{tree.plantedOn}</TableCell>
+                        <TableCell>{tree.location}</TableCell>
+                        <TableCell>{tree.nextinspectiondate}</TableCell>
+                        <TableCell>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusBadgeColor(
+                              tree.status
+                            )}`}
+                          >
+                            {tree.status}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={tree.plantedBy.image || "/placeholder.svg"}
+                              alt={tree.plantedBy.name}
+                              className="w-10 h-10 rounded-full object-cover"
+                            />
+                            <div className="text-sm leading-tight">
+                              <div className="font-medium text-gray-900">
+                                {tree.plantedBy.name}
+                              </div>
+                              <div className="text-gray-500 text-xs">
+                                ID: {tree.plantedBy.id}
+                              </div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <button
+                            type="button"
+                            className="p-2 hover:bg-gray-100 rounded focus:outline-none"
+                          >
+                            <Ellipsis className="w-4 h-4 text-gray-600" />
+                          </button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Pagination */}
+              <div className="flex items-center justify-between px-4 py-3 border-t">
+                <button
+                  onClick={() => paginate(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1 || isLoading}
+                  className="flex items-center gap-1 px-3 py-1 text-sm border rounded hover:bg-gray-100 disabled:opacity-50"
+                >
+                  <ChevronLeft className="h-4 w-4" /> Previous
+                </button>
+
+                <div className="flex items-center space-x-1">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (number) => (
+                      <button
+                        key={number}
+                        onClick={() => paginate(number)}
+                        disabled={isLoading}
+                        className={`w-8 h-8 flex items-center justify-center rounded-md text-sm ${
+                          currentPage === number
+                            ? "bg-gray-900 text-white"
+                            : "border hover:bg-gray-100"
+                        }`}
+                      >
+                        {number}
+                      </button>
+                    )
+                  )}
+                </div>
+
+                <button
+                  onClick={() =>
+                    paginate(Math.min(totalPages, currentPage + 1))
+                  }
+                  disabled={currentPage === totalPages || isLoading}
+                  className="flex items-center gap-1 px-3 py-1 text-sm border rounded hover:bg-gray-100 disabled:opacity-50"
+                >
+                  Next <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
         </TabsContent>
@@ -759,4 +1021,5 @@ const Trees = () => {
     </div>
   );
 };
+
 export default Trees;

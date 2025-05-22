@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import Trees from "./pages/Trees";
+import Volunteer from "./pages/Volunteer";
+import Inspection from "./pages/Inspection";
 import NotFound from "./pages/NotFound";
 import "leaflet/dist/leaflet.css";
 
@@ -28,6 +30,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/trees" element={<Trees />} />
+              <Route path="/volunteer" element={<Volunteer />} />
+              <Route path="/inspection" element={<Inspection />} />
               {/* More routes can go here */}
               <Route path="*" element={<NotFound />} />
             </Routes>

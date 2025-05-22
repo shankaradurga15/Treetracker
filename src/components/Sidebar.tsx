@@ -42,8 +42,8 @@ const Sidebar = () => {
       <div className="py-4 flex flex-col gap-1 px-2 mt-6">
         <SidebarItem icon={<ChartNoAxesColumnIncreasing size={18} />} label="Dashboard" path="/" isActive={currentPath === '/'} />
         <SidebarItem icon={<Trees size={18} />} label="Trees" path="/trees" isActive={currentPath === '/trees'} />
-        <SidebarItem icon={<Users size={18} />} label="Volunteers" path="/supervisor" isActive={currentPath === '/supervisor'} />
-        <SidebarItem icon={<ClipboardList size={18} />} label="Inspections" path="/sterilization" isActive={currentPath === '/sterilization'} />
+        <SidebarItem icon={<Users size={18} />} label="Volunteers" path="/volunteer" isActive={currentPath === '/volunteer'} />
+        <SidebarItem icon={<ClipboardList size={18} />} label="Inspections" path="/inspection" isActive={currentPath === '/inspection'} />
         <SidebarItem icon={<Users size={18} />} label="Users" path="/reports" isActive={currentPath === '/reports'} />
         <SidebarItem icon={<Crown size={18} />} label="Master" path="/settings" isActive={currentPath === '/settings'} />
       </div>
