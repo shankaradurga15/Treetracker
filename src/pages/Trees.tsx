@@ -1,3 +1,4 @@
+
 "use client";
 
 import type React from "react";
@@ -10,8 +11,6 @@ import { ListFilter, Search, Ellipsis } from "lucide-react";
 import {
   List,
   MapPin,
-  PanelLeft,
-  Filter,
   ChevronLeft,
   ChevronRight,
   Import,
@@ -46,9 +45,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+
+import L from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 interface TreeData {
   id: string;
@@ -83,15 +83,6 @@ interface VolunteerData {
   name: string;
   photo: string;
 }
-
-const markerIcon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  shadowSize: [41, 41],
-});
 
 const Trees = () => {
   const [viewMode, setViewMode] = useState<"list" | "map">("map");
@@ -267,19 +258,19 @@ const Trees = () => {
   ];
 
   const organizations: OrganizationData[] = [
-    { id: "1", name: "ITC Foundation", logo: "/hclfoundation_logo.jpg" },
-    { id: "2", name: "Rotary Club", logo: "/rotary club.jpg" },
-    { id: "3", name: "Tuticorin Corporation", logo: "/tuti corporation.jpg" },
-    { id: "4", name: "Lions Club", logo: "/lions club.webp" },
-    { id: "5", name: "TN Government", logo: "/Tamilnadu.png" },
+    { id: "1", name: "ITC Foundation", logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop" },
+    { id: "2", name: "Rotary Club", logo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&h=200&fit=crop" },
+    { id: "3", name: "Tuticorin Corporation", logo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=200&h=200&fit=crop" },
+    { id: "4", name: "Lions Club", logo: "https://images.unsplash.com/photo-1516245834210-c4c142787335?w=200&h=200&fit=crop" },
+    { id: "5", name: "TN Government", logo: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&h=200&fit=crop" },
   ];
 
   const volunteers: VolunteerData[] = [
-    { id: "1", name: "Cory Fisher", photo: "/volunteer1.jpg" },
-    { id: "2", name: "Albert Flores", photo: "/volunteer2.jpg" },
-    { id: "3", name: "Bessie Cooper", photo: "/volunteer3.jpg" },
-    { id: "4", name: "Ralph Edwards", photo: "/volunteer4.jpg" },
-    { id: "5", name: "Dianne Russell", photo: "/volunteer4.jpg" },
+    { id: "1", name: "Cory Fisher", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" },
+    { id: "2", name: "Albert Flores", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face" },
+    { id: "3", name: "Bessie Cooper", photo: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face" },
+    { id: "4", name: "Ralph Edwards", photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" },
+    { id: "5", name: "Dianne Russell", photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face" },
   ];
 
   // Sample data for the detailed tree list view
@@ -293,7 +284,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Due",
       nextinspectiondate: "April 27,2025",
@@ -307,7 +298,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
@@ -321,7 +312,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Due",
       nextinspectiondate: "April 27,2025",
@@ -335,7 +326,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
@@ -349,7 +340,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Pending",
       nextinspectiondate: "May 05,2025",
@@ -363,7 +354,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "In Progress",
       nextinspectiondate: "May 2,2025",
@@ -377,7 +368,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
@@ -391,7 +382,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Pending",
       nextinspectiondate: "May 05, 2025",
@@ -405,7 +396,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "May 05,2025",
@@ -419,7 +410,7 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "/philip.webp",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Pending",
       nextinspectiondate: "May 07,2025",
@@ -462,114 +453,101 @@ const Trees = () => {
   const totalPages = 20;
 
   return (
-    <div className="pl-64 p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50 min-h-screen w-full">
       {/* Top Controls and Title */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="text-2xl font-semibold flex items-center gap-2">
-              <PanelLeft className="w-4 h-4" />
-              Trees
-            </h1>
-          </div>
           <h1 className="text-2xl font-semibold mb-1">Tree Locations</h1>
           <p className="text-gray-500 text-sm">
             View and manage tree plantations across Tuticorin district
           </p>
         </div>
-        <div className="flex flex-col items-end gap-2 -mt-6">
-          <img
-            src="/logo-placeholder.png"
-            alt="Logo"
-            className="w-9 h-9 object-contain"
-          />
-          <div className="flex items-center gap-3">
-            <div className="bg-white rounded-md shadow-sm border flex">
-              <Button
-                variant={viewMode === "list" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => handleViewModeChange("list")}
-                className="rounded-r-none"
-              >
-                <List size={18} className="mr-1" /> List
-              </Button>
-              <Button
-                variant={viewMode === "map" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => handleViewModeChange("map")}
-                className="rounded-l-none"
-              >
-                <MapPin size={18} className="mr-1" /> Map
-              </Button>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="bg-white rounded-md shadow-sm border flex">
+            <Button
+              variant={viewMode === "list" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => handleViewModeChange("list")}
+              className="rounded-r-none"
+            >
+              <List size={18} className="mr-1" /> List
+            </Button>
+            <Button
+              variant={viewMode === "map" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => handleViewModeChange("map")}
+              className="rounded-l-none"
+            >
+              <MapPin size={18} className="mr-1" /> Map
+            </Button>
+          </div>
 
-            {showImportButton && (
-              <Button
-                size="sm"
-                onClick={handleImportClick}
-                className="border border-[#4a695b] text-[white] hover:bg-[#4a695b]/9"
-              >
-                <Import size={18} className="mr-1" /> Import Excel
-              </Button>
-            )}
+          {showImportButton && (
+            <Button
+              size="sm"
+              onClick={handleImportClick}
+              className="border border-[#4a695b] text-[white] hover:bg-[#4a695b]/9"
+            >
+              <Import size={18} className="mr-1" /> Import Excel
+            </Button>
+          )}
 
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <Filter size={18} /> Filter
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-80">
-                <div className="space-y-4">
-                  <h3 className="font-medium mb-2">Filter Options</h3>
-                  <div>
-                    <h4 className="text-sm font-medium mb-1">Tree Type</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["Neem", "Banyan", "Oak", "Pine"].map((type) => (
-                        <Badge
-                          key={type}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-primary hover:text-white"
-                        >
-                          {type}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium mb-1">Ward</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {["Ward 1", "Ward 2", "Ward 3"].map((ward) => (
-                        <Badge
-                          key={ward}
-                          variant="outline"
-                          className="cursor-pointer hover:bg-primary hover:text-white"
-                        >
-                          {ward}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="pt-2 flex justify-between">
-                    <Button variant="outline" size="sm">
-                      Reset
-                    </Button>
-                    <Button size="sm">Apply Filters</Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="sm">
+                <ListFilter size={18} className="mr-1" /> Filter
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <div className="space-y-4">
+                <h3 className="font-medium mb-2">Filter Options</h3>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Tree Type</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Neem", "Banyan", "Oak", "Pine"].map((type) => (
+                      <Badge
+                        key={type}
+                        variant="outline"
+                        className="cursor-pointer hover:bg-primary hover:text-white"
+                      >
+                        {type}
+                      </Badge>
+                    ))}
                   </div>
                 </div>
-              </PopoverContent>
-            </Popover>
-          </div>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Ward</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {["Ward 1", "Ward 2", "Ward 3"].map((ward) => (
+                      <Badge
+                        key={ward}
+                        variant="outline"
+                        className="cursor-pointer hover:bg-primary hover:text-white"
+                      >
+                        {ward}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                <div className="pt-2 flex justify-between">
+                  <Button variant="outline" size="sm">
+                    Reset
+                  </Button>
+                  <Button size="sm">Apply Filters</Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
 
-      {/* Complaint Register Dialog */}
+      {/* Dialog */}
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="sm:max-w-xl">
           <DialogHeader>
-            <DialogTitle>Register New Complaint</DialogTitle>
+            <DialogTitle>Import Trees Data</DialogTitle>
             <DialogDescription>
-              Enter the details of the new dog complaint.
+              Upload an Excel file containing tree information.
             </DialogDescription>
           </DialogHeader>
 
@@ -607,9 +585,9 @@ const Trees = () => {
               Contact
             </label>
             <Input className="sm:col-span-9" placeholder="Phone number" />
-            {/* Dog Count */}
+            {/* Tree Count */}
             <label className="sm:col-span-3 text-sm font-medium mt-2">
-              Dog Count
+              Tree Count
             </label>
             <Input className="sm:col-span-9" placeholder="1" />
             {/* Description */}
@@ -618,7 +596,7 @@ const Trees = () => {
             </label>
             <Textarea
               className="sm:col-span-9"
-              placeholder="Describe the issue"
+              placeholder="Describe the trees"
             />
             {/* Priority */}
             <label className="sm:col-span-3 text-sm font-medium mt-2">
@@ -641,7 +619,7 @@ const Trees = () => {
               className="sm:col-span-9 text-white hover:opacity-90 transition"
               style={{ backgroundColor: "#0e3624" }}
             >
-              Register Complaint
+              Import Data
             </Button>
           </form>
         </DialogContent>
@@ -652,7 +630,7 @@ const Trees = () => {
         onValueChange={(value) => handleViewModeChange(value as "list" | "map")}
       >
         <TabsContent value="map">
-          <div className="flex flex-col lg:flex-row gap-10">
+          <div className="flex flex-col lg:flex-row gap-6">
             <div className="w-full lg:w-[500px] flex flex-col gap-6 border border-gray-200 rounded-md p-4">
               {/* Trees Carousel */}
               <div>
@@ -1023,3 +1001,14 @@ const Trees = () => {
 };
 
 export default Trees;
+
+// Define marker icon
+const markerIcon = new L.Icon({
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
