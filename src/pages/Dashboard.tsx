@@ -79,30 +79,9 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="pl-64 p-6 bg-gray-50 min-h-screen">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-semibold flex items-center gap-2">
-          <PanelLeft className="w-4 h-4" />
-          Dashboard
-        </h1>
-        <div className="flex items-center gap-4">
-          <Select defaultValue="lastYear">
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select period" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="today">Today</SelectItem>
-              <SelectItem value="thisWeek">This Week</SelectItem>
-              <SelectItem value="thisMonth">This Month</SelectItem>
-              <SelectItem value="lastMonth">Last Month</SelectItem>
-              <SelectItem value="lastYear">Last Year</SelectItem>
-            </SelectContent>
-          </Select>
-    <img src="/logo-placeholder.png" alt="Logo" className="w-9 h-9 object-contain" />
-</div>
-
-      </div>
-
+    <div className="p-6 bg-gray-50 min-h-screen">
+      {/* Remove the entire header section */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <StatCard 
           title="Total Trees"

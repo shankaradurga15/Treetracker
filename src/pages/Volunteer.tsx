@@ -192,47 +192,35 @@ const Volunteer = () => {
   const totalPages = 20;
 
   return (
-    <div className="pl-64 p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50 min-h-screen">
+      {/* Remove the logo and header section */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <div className="flex items-center justify-between mb-8">
-            <h1 className="text-2xl font-semibold flex items-center gap-2">
-              <PanelLeft className="w-4 h-4" />
-              Volunteers
-            </h1>
-          </div>
           <h1 className="text-2xl font-semibold mb-1">Volunteer Management</h1>
           <p className="text-gray-500 text-sm">
             View, add and manage volunteers
           </p>
         </div>
-        <div className="flex flex-col items-end gap-2 -mt-6">
-          <img
-            src="/logo-placeholder.png"
-            alt="Logo"
-            className="w-9 h-9 object-contain"
-          />
-          <div className="flex items-center gap-3">
-            {showImportButton && (
-              <>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={handleImportClick}
-                >
-                  <Import size={18} className="mr-1" /> Import Excel
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleNewVolunteerClick}
-                  className="bg-white text-[#0e3624] border-[#0e3624] hover:bg-[#0e3624]/10"
-                >
-                  <UserPlus size={18} className="mr-1" /> New Volunteer
-                </Button>
-              </>
-            )}
-          </div>
+        <div className="flex items-center gap-3">
+          {showImportButton && (
+            <>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handleImportClick}
+              >
+                <Import size={18} className="mr-1" /> Import Excel
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleNewVolunteerClick}
+                className="bg-white text-[#0e3624] border-[#0e3624] hover:bg-[#0e3624]/10"
+              >
+                <UserPlus size={18} className="mr-1" /> New Volunteer
+              </Button>
+            </>
+          )}
         </div>
       </div>
       {/* Complaint Register Dialog */}
