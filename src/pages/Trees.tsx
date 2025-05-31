@@ -1,4 +1,3 @@
-
 "use client";
 
 import type React from "react";
@@ -8,13 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { ListFilter, Search, Ellipsis } from "lucide-react";
-import {
-  List,
-  MapPin,
-  ChevronLeft,
-  ChevronRight,
-  Import,
-} from "lucide-react";
+import { List, MapPin, ChevronLeft, ChevronRight, Import } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -46,9 +39,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 interface TreeData {
   id: string;
@@ -83,7 +76,10 @@ interface VolunteerData {
   name: string;
   photo: string;
 }
-
+const handleTreeClick = (tree: TreeData) => {
+  console.log("Clicked tree:", tree);
+  // You can navigate, open modal, or update state here
+};
 const Trees = () => {
   const [viewMode, setViewMode] = useState<"list" | "map">("map");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -258,19 +254,64 @@ const Trees = () => {
   ];
 
   const organizations: OrganizationData[] = [
-    { id: "1", name: "ITC Foundation", logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop" },
-    { id: "2", name: "Rotary Club", logo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&h=200&fit=crop" },
-    { id: "3", name: "Tuticorin Corporation", logo: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=200&h=200&fit=crop" },
-    { id: "4", name: "Lions Club", logo: "https://images.unsplash.com/photo-1516245834210-c4c142787335?w=200&h=200&fit=crop" },
-    { id: "5", name: "TN Government", logo: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&h=200&fit=crop" },
+    {
+      id: "1",
+      name: "ITC Foundation",
+      logo: "/public/hclfoundation_logo.jpg",
+    },
+    {
+      id: "2",
+      name: "Rotary Club",
+      logo: "/public/rotary club.jpg",
+    },
+    {
+      id: "3",
+      name: "Tuticorin Corporation",
+      logo: "/public/tuti corporation.jpg",
+    },
+    {
+      id: "4",
+      name: "Lions Club",
+      logo: "/public/lions club.webp",
+    },
+    {
+      id: "5",
+      name: "TN Government",
+      logo: "/public/Tamilnadu.png",
+    },
   ];
 
   const volunteers: VolunteerData[] = [
-    { id: "1", name: "Cory Fisher", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face" },
-    { id: "2", name: "Albert Flores", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face" },
-    { id: "3", name: "Bessie Cooper", photo: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face" },
-    { id: "4", name: "Ralph Edwards", photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face" },
-    { id: "5", name: "Dianne Russell", photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face" },
+    {
+      id: "1",
+      name: "Cory Fisher",
+      photo:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+    },
+    {
+      id: "2",
+      name: "Albert Flores",
+      photo:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
+    },
+    {
+      id: "3",
+      name: "Bessie Cooper",
+      photo:
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=200&fit=crop&crop=face",
+    },
+    {
+      id: "4",
+      name: "Ralph Edwards",
+      photo:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
+    },
+    {
+      id: "5",
+      name: "Dianne Russell",
+      photo:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
+    },
   ];
 
   // Sample data for the detailed tree list view
@@ -284,7 +325,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Due",
       nextinspectiondate: "April 27,2025",
@@ -298,7 +340,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
@@ -312,7 +355,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Due",
       nextinspectiondate: "April 27,2025",
@@ -326,7 +370,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
@@ -340,7 +385,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Pending",
       nextinspectiondate: "May 05,2025",
@@ -354,7 +400,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "In Progress",
       nextinspectiondate: "May 2,2025",
@@ -368,7 +415,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "April 27,2025",
@@ -382,7 +430,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Pending",
       nextinspectiondate: "May 05, 2025",
@@ -396,7 +445,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Completed",
       nextinspectiondate: "May 05,2025",
@@ -410,7 +460,8 @@ const Trees = () => {
       plantedBy: {
         name: "Philip",
         id: "VT12",
-        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+        image:
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
       },
       status: "Pending",
       nextinspectiondate: "May 07,2025",
@@ -653,28 +704,33 @@ const Trees = () => {
                     className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide"
                   >
                     {trees.map((tree) => (
-                      <Card
+                      <div
                         key={tree.id}
-                        className="bg-[#194f33] text-white rounded-lg shadow overflow-hidden flex-shrink-0"
-                        style={{ width: "140px" }}
+                        onClick={() => handleTreeClick(tree)}
+                        className="cursor-pointer"
                       >
-                        <div
-                          className="h-32 overflow-hidden rounded-xl border-8"
-                          style={{ borderColor: "#194f33" }}
+                        <Card
+                          className="bg-[#194f33] text-white rounded-lg shadow overflow-hidden flex-shrink-0"
+                          style={{ width: "140px" }}
                         >
-                          <img
-                            src={tree.image || "/placeholder.svg"}
-                            alt={tree.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <CardContent className="pt-2 pb-2 px-3">
-                          <h3 className="text-base font-semibold leading-tight">
-                            {tree.name}
-                          </h3>
-                          <p className="text-xs mt-1">{tree.species}</p>
-                        </CardContent>
-                      </Card>
+                          <div
+                            className="h-32 overflow-hidden rounded-xl border-8"
+                            style={{ borderColor: "#194f33" }}
+                          >
+                            <img
+                              src={tree.image || "/placeholder.svg"}
+                              alt={tree.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <CardContent className="pt-2 pb-2 px-3">
+                            <h3 className="text-base font-semibold leading-tight">
+                              {tree.name}
+                            </h3>
+                            <p className="text-xs mt-1">{tree.species}</p>
+                          </CardContent>
+                        </Card>
+                      </div>
                     ))}
                   </div>
 
@@ -1004,11 +1060,14 @@ export default Trees;
 
 // Define marker icon
 const markerIcon = new L.Icon({
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+  shadowSize: [41, 41],
 });
