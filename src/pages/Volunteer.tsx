@@ -49,6 +49,7 @@ import {
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import AssignVolunteerDialog from "@/components/volunteerdialog";
 
 interface VolunteerListData {
   id: string;
@@ -171,9 +172,16 @@ const Volunteer = () => {
   const [showImportButton, setShowImportButton] = useState(true);
   const [openComplaintDialog, setOpenComplaintDialog] = useState(false);
   const [openVolunteerDialog, setOpenVolunteerDialog] = useState(false);
+  const [openAssignDialog, setOpenAssignDialog] = useState(false);
+  const [selectedVolunteer, setSelectedVolunteer] = useState<VolunteerListData | null>(null);
 
   const handleImportClick = () => setOpenComplaintDialog(true);
   const handleNewVolunteerClick = () => setOpenVolunteerDialog(true);
+  
+  const handleAssignClick = (volunteer: VolunteerListData) => {
+    setSelectedVolunteer(volunteer);
+    setOpenAssignDialog(true);
+  };
 
   const paginate = (pageNumber: number) => {
     setIsLoading(true);
@@ -223,6 +231,7 @@ const Volunteer = () => {
           )}
         </div>
       </div>
+
       {/* Complaint Register Dialog */}
       <Dialog open={openComplaintDialog} onOpenChange={setOpenComplaintDialog}>
         <DialogContent className="sm:max-w-xl">
@@ -449,6 +458,15 @@ const Volunteer = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Assign Volunteer Dialog */}
+      <AssignVolunteerDialog
+        open={openAssignDialog}
+        onOpenChange={setOpenAssignDialog}
+        volunteerId={selectedVolunteer?.id}
+        volunteerName={selectedVolunteer?.name}
+      />
+
       {/* Volunteer Table */}
       <div className="bg-white rounded-md shadow mb-6">
         <div className="p-4 border-b flex justify-between items-center">
@@ -499,6 +517,7 @@ const Volunteer = () => {
                     variant="outline"
                     size="sm"
                     className="w-20 px-2 py-1 text-xs border-[#0e3624] text-[#0e3624] hover:bg-[#0e3624]/10"
+                    onClick={() => handleAssignClick(volunteer)}
                   >
                     Assigned To
                   </Button>
