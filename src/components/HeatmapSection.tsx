@@ -6,6 +6,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+const pieData = [
+  { name: "Ward 1", value: 400 },
+  { name: "Ward 2", value: 300 },
+  { name: "Ward 3", value: 300 },
+  { name: "Ward 4", value: 200 },
+];
+
+const pieColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const customIcon = new L.Icon({
   iconUrl: "/leaflet/marker-icon.png",
@@ -33,39 +49,63 @@ const HeatmapSection = () => {
 
   // Heights for each tab content
   const containerHeights = {
-    chart: 220,
+    chart: 400,
     map: 400,
   };
 
   return (
     <div
-  className="chart-container w-full rounded-md overflow-hidden border border-gray-300"
-  style={{
-    height: activeTab === "map" ? "400px" : "220px",
-    transition: "height 0.3s ease",
-  }}
->
-
+      className="chart-container w-full rounded-md overflow-hidden border border-gray-300"
+      style={{
+        height: activeTab === "map" ? "400px" : "400px",
+        transition: "height 0.3s ease",
+      }}
+    >
       <h2 className="text-lg font-semibold mb-4">Inspection Due Heatmap</h2>
 
-      <Tabs defaultValue="chart" onValueChange={setActiveTab} className="h-full">
+      <Tabs
+        defaultValue="chart"
+        onValueChange={setActiveTab}
+        className="h-full"
+      >
         <TabsList className="mb-4">
           <TabsTrigger value="chart">Chart</TabsTrigger>
           <TabsTrigger value="map">Map</TabsTrigger>
         </TabsList>
 
         {/* Container for tab content */}
-        <div className="relative h-[calc(100%-3rem)] w-full"> 
+        <div className="relative h-[calc(100%-3rem)] w-full -mt-4">
+
           {/* 3rem approx height of h2 + margin */}
-          
+
           {/* Chart content */}
           <TabsContent
             value="chart"
             className="absolute inset-0 flex items-center justify-center bg-white p-4"
           >
-            <div className="text-center text-gray-500 overflow-auto">
-              <p>Ward data visualization will be displayed here</p>
-              <p className="text-sm">Shows complaint distribution by ward</p>
+            <div className="w-full h-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={pieColors[index % pieColors.length]}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
           </TabsContent>
 

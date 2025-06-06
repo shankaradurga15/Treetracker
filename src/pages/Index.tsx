@@ -1,8 +1,8 @@
-
-import { Navigate } from "react-router-dom";
+import TreetrackerLanding from "./TreetrackerLanding";
 
 const Index = () => {
-  return <Navigate to="/" replace />;
+  return <TreetrackerLanding />;
 };
 
 export default Index;
+

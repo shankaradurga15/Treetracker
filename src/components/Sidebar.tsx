@@ -53,8 +53,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
         <SidebarItem 
           icon={<ChartNoAxesColumnIncreasing size={18} />} 
           label="Dashboard" 
-          path="/" 
-          isActive={currentPath === '/'} 
+          path="/dashboard" 
+          isActive={currentPath === '/dashboard'} 
           isOpen={isOpen}
         />
         <SidebarItem 
@@ -78,13 +78,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
           isActive={currentPath === '/inspection'} 
           isOpen={isOpen}
         />
-        <SidebarItem 
+        {/* <SidebarItem 
           icon={<Users size={18} />} 
           label="Users" 
           path="/users" 
           isActive={currentPath === '/users'} 
           isOpen={isOpen}
-        />
+        /> */}
         <SidebarItem 
           icon={<Crown size={18} />} 
           label="Master" 
