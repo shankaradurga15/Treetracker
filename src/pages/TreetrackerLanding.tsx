@@ -177,7 +177,7 @@ const TreetrackerLanding = () => {
         <div className="w-1/2 flex flex-col items-center justify-center px-10">
           <img src="/logo-placeholder.png" alt="Municipal Logo" className="h-24 w-24 mb-4" />
           <h1 className="text-white text-3xl font-bold">Tuticorin Municipal</h1>
-          <h2 className="text-gray-300 text-xl mb-6">Dog Control System</h2>
+          <h2 className="text-gray-300 text-xl mb-6">Tree Tracker System</h2>
 
           <div className="mb-4 w-[300px] rounded-md overflow-hidden flex shadow-lg border">
             <button
